@@ -75,7 +75,7 @@ else {
 Koren(C,D,Eps,KM,err,B,Lt,err);
 if (err==false)ShowMessage("Решение не найдено за "+FloatToStr(KM)+" итераций");
 else{
-Tab(Xn,Nx,Dx,An,Ak,Da,B,M,N,ER,My,Ma,Mx);
+Tab(Xn,Nx,Dx,An,Ak,Da,B,M,N,ER,My,Mx,Ma);
 Out1(B,N,M,Lt,My,ER,Ma, Mx);
 }
 }
@@ -83,10 +83,10 @@ Out1(B,N,M,Lt,My,ER,Ma, Mx);
 
 delete [] Mx;
 delete [] Ma;
-//for(int i=0;i<M;i++) delete[]My[i];
-//delete [] My;
-//for(int i=0;i<M;i++) delete[]ER[i];
-//delete [] ER;
+for(int i=0;i<M;i++) delete[]My[i];
+delete [] My;
+for(int i=0;i<M;i++) delete[]ER[i];
+delete [] ER;
 }
 
 //-------------------------------------------------------------------------—
@@ -98,7 +98,6 @@ return (log10(x)-7/(2*x+6));
 
 void Koren(double C, double D, double Eps, int KM, bool&ER, double&B, double&Lt, bool err)
 {
-
 B=C;
 Lt=0;
 err=false;
@@ -140,10 +139,9 @@ i++;
 
 //Таб- е ф-и
 void Tab(double Xn,double Nx,double Dx,double An,double Ak,double Da,
-double B, int M, int N,double**ER,
+double B, int N, int M,double**ER,
 double**My, double *Ma, double*Mx)
 {
-
 	for (int i=0; i<M; i++)
 	{
 		Ma[i]=An+Da*i;
@@ -157,13 +155,11 @@ double**My, double *Ma, double*Mx)
 		else ER[j][i]=1;
 		}
 	}
-
 }
 //Проверить ссылки
 void Out1(double B,int N,int M,double Lt,double**My,double**ER,
 double*Ma,double*Mx)
 {
-
 /*Form2->Chart1->SeriesList->Clear();
 
 
