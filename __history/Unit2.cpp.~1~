@@ -1,0 +1,197 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+ #include <math.h>
+#include "Unit2.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm2 *Form2;
+//---------------------------------------------------------------------------
+__fastcall TForm2::TForm2(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm2::Button2Click(TObject *Sender)
+{
+      Edit1->Clear();
+Edit2->Clear();
+Edit3->Clear();
+Edit4->Clear();
+Edit5->Clear();
+Edit6->Clear();
+Edit7->Clear();
+Edit8->Clear();
+Edit9->Clear();
+Edit10->Clear();
+Edit11->Clear();
+Edit12->Clear();
+}
+//-------------------------------------------------------------------------—
+void Koren(double,double,double,int,bool&,double&,double&, bool );
+void Tab(double,double,double,double,double,double,double,int,int,double**,double**,double*,double*);
+void Out1(double,int,int,double,double**,double**,double*,double*);
+//---------------------------------------------------------------------------
+void __fastcall TForm2::Button1Click(TObject *Sender)
+{
+       double
+Xn = StrToFloat(Edit1->Text),
+Dx=StrToFloat(Edit3->Text),
+Nx=StrToFloat(Edit2->Text),
+
+An=StrToFloat(Edit4->Text),
+Ak=StrToFloat(Edit5->Text),
+Da=StrToFloat(Edit6->Text),
+
+
+C=StrToFloat(Edit8->Text),
+Eps=StrToFloat(Edit7->Text),
+D=StrToFloat(Edit9->Text),
+
+
+B, Lt ;
+int
+
+N= (int) (Nx),
+M=(int)((Ak-An)/Da+1),
+KM = StrToFloat(Edit10->Text);
+bool err;
+
+double*Mx=new double[N];
+double*Ma=new double[M];
+double**My=new double*[M];
+for (int i = 0; i < M; i++){
+
+My[i]=new double[N];
+}
+double**ER=new double*[M];
+for (int i = 0; i < M; i++) {
+ER[i]=new double[N];
+}
+if (Eps>=1||Eps<=0) ShowMessage("Проверте погрешность Eps!");
+else {
+Koren(C,D,Eps,KM,err,B,Lt,err);
+if (err==false)ShowMessage("Решение не найдено за "+FloatToStr(KM)+" итераций");
+else{
+Tab( Xn,Dx,Nx,An,Ak,Da,B,M,N,ER,My,Mx,Ma);
+Out1(B,N,M,Lt,ER,My,Mx,Ma);
+}
+}
+
+
+delete [] Mx;
+delete [] Ma;
+for(int i=0;i<M;i++) delete[]My[i];
+delete [] My;
+for(int i=0;i<M;i++) delete[]ER[i];
+delete [] ER;
+}
+
+//-------------------------------------------------------------------------—
+double f(double x){
+return (log10(x)-7/(2*x+6));
+
+}
+//проверить значения
+
+void Koren(double C, double D, double Eps, int KM, bool&ER, double&B, double&Lt, bool err)
+{
+B=C;
+err=false;
+for (int i=1;i<=KM; i++)
+{ double f=(log10(B)-(7/(2*B+6)));
+double f1=(1/B*log(10)+(14/(4*(pow(B,2))+24*B+36)));
+double Cp=B-(f/f1);
+double r=abs(Cp-B);
+B=Cp;
+if(r<=Eps)
+{
+err=true;
+return;
+}
+}
+
+}
+
+/*
+int i=1;
+double z;
+// err=false;
+ER=true;
+while(i<=KM){
+z=(C+D)/2;
+if(fabs(f(z)) > Eps)
+if(f(C)*f(z) > 0) C=z; else D=z;
+else{
+i=KM;
+B=z;
+Lt=f(z);
+ER=false;
+//err=true;
+}
+i++;
+}
+} /*/
+
+//Таб- е ф-и
+void Tab(double Xn,double Nx,double Dx,double An,double Ak,double Da,
+double B, int N, int M,double**ER,
+double**My, double* Ma, double*Mx)
+{
+for (int i=0; i<M; i++)
+{
+Ma[i]=An+Da*i;
+for (int j=0; j<N; j++)
+{
+Mx[j]=Xn+Dx*j;
+if ((Ma[i]+B>0)&&(B>=0)){
+My[j][i]=(tan(8*Mx[j])-pow(Ma[i],3)+B/(sqrt(B)+Ma[i]));
+ER[j][i]=0;
+}
+else ER[j][i]=1;
+}
+}
+}
+//Проверить ссылки
+void Out1(double B,int N,int M,double Lt,double**My,double**ER,
+double*Ma,double*Mx)
+{
+ Form2->Edit11->Text=FloatToStrF(B,ffGeneral,10,6);
+Form2->Edit12->Text=FloatToStrF(Lt,ffGeneral,10,6);
+Form2->sg->RowCount=N+1;
+Form2->sg->ColCount=M+1;
+
+Form2->sg->Cells[0][0]="X/A";
+for(int i=0;i<M;i++)
+{
+Form2->sg->Cells[i+1][0]="A["+IntToStr(i+1)+"]="+FloatToStr(Ma[i]);
+Form2->Chart1->Series[i]->Title="A["+IntToStr(i+1)+"]";
+Form2->Chart1->Series[i]->Clear();
+for (int j=0;j<N;j++){
+Form2->sg->Cells[0][j+1]="X["+IntToStr(j)+"]="+FloatToStr(Mx[j]);
+if(ER[i][j]==1)
+Form2->sg->Cells[i+1][j+1]="Err";
+else
+Form2->sg->Cells[i+1][j+1]=FloatToStr(My[i][j]);
+Form2->Chart1->Series[i]->AddXY(Mx[j],My[i][j]);
+}
+}
+for (int j=0;j<N;j++){
+Form2->sg->Cells[0] [j+1]="X["+IntToStr(j+1)+"]="+FloatToStr(Mx[j]);
+}
+}
+
+//---------------------------------------------------------------------------
+
+
+
+//---------------------------------------------------------------------------
+void __fastcall TForm2::Button3Click(TObject *Sender)
+{
+   Close();
+}
+//---------------------------------------------------------------------------
+
+
