@@ -27,7 +27,7 @@ Edit10->Clear();
 Edit11->Clear();
 Edit12->Clear();
 }
-//-------------------------------------------------------------------------—
+//-------------------------------------------------------------------------�
 void Koren(double,double,double,int,bool&,double&,double&, bool );
 void Tab(double,double,double,double,double,double,double,int,int,double**,double**,double*,double*);
 void Out1(double,int,int,double,double**,double**,double*,double*);
@@ -68,10 +68,10 @@ double**ER=new double*[M];
 for (int i = 0; i < M; i++) {
 ER[i]=new double[N];
 }
-if (Eps>=1||Eps<=0) ShowMessage("Проверьте значение Eps!");
+if (Eps>=1||Eps<=0) ShowMessage("???????? ??????????? Eps!");
 else {
 Koren(C,D,Eps,KM,err,B,Lt,err);
-if (err==false)ShowMessage("Не найдено за "+FloatToStr(KM)+" итераций");
+if (err==false)ShowMessage("??????? ?? ??????? ?? "+FloatToStr(KM)+" ????????");
 else{
 Tab(Xn,Nx,Dx,An,Ak,Da,B,M,N,ER,My,Mx,Ma);
 Out1(B,N,M,Lt,My,ER,Ma, Mx);
@@ -92,12 +92,12 @@ void __fastcall TForm2::Button3Click(TObject *Sender)
    Close();
 }
 
-//-------------------------------------------------------------------------—
+//-------------------------------------------------------------------------�
 double f(double x){
 return (log10(x)-7/(2*x+6));
 
 }
-//ïðîâåðèòü çíà÷åíèÿ
+//????????? ????????
 
 void Koren(double C, double D, double Eps, int KM, bool&ER, double&B, double&Lt, bool err)
 {
@@ -140,7 +140,7 @@ i++;
 }
 } /*/
 
-//Òàá- å ô-è
+//???- ? ?-?
 void Tab(double Xn,double Nx,double Dx,double An,double Ak,double Da,
 double B, int N, int M,double**ER,
 double**My, double *Ma, double*Mx)
@@ -159,7 +159,7 @@ double**My, double *Ma, double*Mx)
 		}
 	}
 }
-//Ïðîâåðèòü ññûëêè
+//????????? ??????
 void Out1(double B,int N,int M,double Lt,double**My,double**ER,
 double*Ma,double*Mx)
 {

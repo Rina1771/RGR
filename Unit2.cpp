@@ -1,4 +1,4 @@
-#include <vcl.h>
+﻿#include <vcl.h>
 #pragma hdrstop
 #include <math.h>
 #include "Unit2.h"
@@ -27,7 +27,7 @@ Edit10->Clear();
 Edit11->Clear();
 Edit12->Clear();
 }
-//-------------------------------------------------------------------------�
+//-------------------------------------------------------------------------—
 void Koren(double,double,double,int,bool&,double&,double&, bool );
 void Tab(double,double,double,double,double,double,double,int,int,double**,double**,double*,double*);
 void Out1(double,int,int,double,double**,double**,double*,double*);
@@ -68,10 +68,10 @@ double**ER=new double*[M];
 for (int i = 0; i < M; i++) {
 ER[i]=new double[N];
 }
-if (Eps>=1||Eps<=0) ShowMessage("???????? ??????????? Eps!");
+if (Eps>=1||Eps<=0) ShowMessage("Проверьте значение Eps!");
 else {
 Koren(C,D,Eps,KM,err,B,Lt,err);
-if (err==false)ShowMessage("??????? ?? ??????? ?? "+FloatToStr(KM)+" ????????");
+if (err==false)ShowMessage("Не найдено за "+FloatToStr(KM)+" итераций");
 else{
 Tab(Xn,Nx,Dx,An,Ak,Da,B,M,N,ER,My,Mx,Ma);
 Out1(B,N,M,Lt,My,ER,Ma, Mx);
@@ -92,12 +92,12 @@ void __fastcall TForm2::Button3Click(TObject *Sender)
    Close();
 }
 
-//-------------------------------------------------------------------------�
+//-------------------------------------------------------------------------—
 double f(double x){
 return (log10(x)-7/(2*x+6));
 
 }
-//????????? ????????
+//ïðîâåðèòü çíà÷åíèÿ
 
 void Koren(double C, double D, double Eps, int KM, bool&ER, double&B, double&Lt, bool err)
 {
@@ -140,7 +140,7 @@ i++;
 }
 } /*/
 
-//???- ? ?-?
+//Òàá- å ô-è
 void Tab(double Xn,double Nx,double Dx,double An,double Ak,double Da,
 double B, int N, int M,double**ER,
 double**My, double *Ma, double*Mx)
@@ -152,14 +152,14 @@ double**My, double *Ma, double*Mx)
 		{
 			Mx[j]=Xn+Dx*j;
 			if ((Ma[i]+B>0)&&(B>=0)){
-				My[j][i]=(tan(8*Mx[j])-pow(Ma[i],3)+B/(sqrt(B)+Ma[i]));
+				My[j][i]=(tan(8*Mx[j])-pow(Ma[i],3)+B)/(sqrt(B)+(Ma[i]));
 			ER[j][i]=0;
 		}
 		else ER[j][i]=1;
 		}
 	}
 }
-//????????? ??????
+//Ïðîâåðèòü ññûëêè
 void Out1(double B,int N,int M,double Lt,double**My,double**ER,
 double*Ma,double*Mx)
 {
@@ -168,7 +168,9 @@ Form2->Edit11->Text=FloatToStrF(B,ffGeneral,10,6);
 Form2->Edit12->Text=FloatToStrF(Lt,ffGeneral,10,6);
 Form2->sg->RowCount=N+1;
 Form2->sg->ColCount=M+1;
-Form2->sg->Cells[0][0]="X/A";
+
+
+
 for(int i=1;i<=M;i++)
 {
 TLineSeries *Series = new TLineSeries(Form2->Chart1);
@@ -188,6 +190,8 @@ for (int j=0;j<N;j++){
 Form2->sg->Cells[0] [j]="X["+IntToStr(j)+"]="+FloatToStr(Mx[j-1]);
 }
 */
+
+Form2->sg->Cells[0][0]="X/A";
 Form2->Edit11->Text=FloatToStrF(B,ffGeneral,10,6);
 Form2->Edit12->Text=FloatToStrF(Lt,ffGeneral,10,6);
 
