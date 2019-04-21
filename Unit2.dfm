@@ -191,6 +191,11 @@ object Form2: TForm2
     View3D = False
     TabOrder = 12
     DefaultCanvas = 'TGDIPlusCanvas'
+    PrintMargins = (
+      15
+      20
+      15
+      20)
     ColorPaletteIndex = 13
     object Series1: TFastLineSeries
       LinePen.Color = 10708548

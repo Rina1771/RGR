@@ -36,7 +36,7 @@ void Out1(double,int,int,double,double**,double**,double*,double*);
 //---------------------------------------------------------------------------
 void __fastcall TForm2::Button1Click(TObject *Sender)
 {
-       double
+	   double
 Xn = StrToFloat(Edit1->Text),
 Dx=StrToFloat(Edit3->Text),
 Nx=StrToFloat(Edit2->Text),
@@ -75,8 +75,8 @@ else {
 Koren(C,D,Eps,KM,err,B,Lt,err);
 if (err==false)ShowMessage("Решение не найдено за "+FloatToStr(KM)+" итераций");
 else{
-Tab( Xn,Dx,Nx,An,Ak,Da,B,M,N,ER,My,Mx,Ma);
-Out1(B,N,M,Lt,ER,My,Mx,Ma);
+Tab(Xn,Nx,Dx,An,Ak,Da,B,M,N,ER,My,Mx,Ma);
+Out1(B,N,M,Lt,My,ER,Ma, Mx);
 }
 }
 
@@ -142,47 +142,74 @@ void Tab(double Xn,double Nx,double Dx,double An,double Ak,double Da,
 double B, int N, int M,double**ER,
 double**My, double *Ma, double*Mx)
 {
-for (int i=0; i<M; i++)
-{
-Ma[i]=An+Da*i;
-for (int j=0; j<N; j++)
-{
-Mx[j]=Xn+Dx*j;
-if ((Ma[i]+B>0)&&(B>=0)){
-My[j][i]=(tan(8*Mx[j])-pow(Ma[i],3)+B/(sqrt(B)+Ma[i]));
-ER[j][i]=0;
-}
-else ER[j][i]=1;
-}
-}
+	for (int i=0; i<M; i++)
+	{
+		Ma[i]=An+Da*i;
+		for (int j=0; j<N; j++)
+		{
+			Mx[j]=Xn+Dx*j;
+			if ((Ma[i]+B>0)&&(B>=0)){
+				My[j][i]=(tan(8*Mx[j])-pow(Ma[i],3)+B/(sqrt(B)+Ma[i]));
+			ER[j][i]=0;
+		}
+		else ER[j][i]=1;
+		}
+	}
 }
 //Проверить ссылки
 void Out1(double B,int N,int M,double Lt,double**My,double**ER,
 double*Ma,double*Mx)
 {
- Form2->Edit11->Text=FloatToStrF(B,ffGeneral,10,6);
+/*Form2->Chart1->SeriesList->Clear();
+
+
+Form2->Edit11->Text=FloatToStrF(B,ffGeneral,10,6);
 Form2->Edit12->Text=FloatToStrF(Lt,ffGeneral,10,6);
 Form2->sg->RowCount=N+1;
 Form2->sg->ColCount=M+1;
 
 Form2->sg->Cells[0][0]="X/A";
-for(int i=0;i<M;i++)
+for(int i=1;i<=M;i++)
 {
-Form2->sg->Cells[i+1][0]="A["+IntToStr(i+1)+"]="+FloatToStr(Ma[i]);
-//Form2->Chart1->Series[i]->Title="A["+IntToStr(i+1)+"]";
-//Form2->Chart1->Series[i]->Clear();
-for (int j=0;j<N;j++){
-Form2->sg->Cells[0][j+1]="X["+IntToStr(j)+"]="+FloatToStr(Mx[j]);
+
+TLineSeries *Series = new TLineSeries(Form2->Chart1);
+Form2->Chart1->AddSeries(Series);
+
+Form2->sg->Cells[i][0]="A["+IntToStr(i)+"]="+FloatToStr(Ma[i-1]);
+//Form2->Chart1->Series[i]->Title="A["+IntToStr(i)+"]";
+
+for (int j=1;j<=N;j++){
+Form2->sg->Cells[0][j]="X["+IntToStr(j)+"]="+FloatToStr(Mx[j-1]);
 if(ER[i][j]==1)
-Form2->sg->Cells[i+1][j+1]="Err";
+Form2->sg->Cells[i][j]="Err";
 else
-Form2->sg->Cells[i+1][j+1]=FloatToStr(My[i][j]);
-//Form2->Chart1->Series[i]->AddXY(Mx[j],My[i][j]);
+Form2->sg->Cells[i][j]=FloatToStr(My[i-1][j-1]);
+Form2->Chart1->Series[i]->AddXY(Mx[j-1],My[i-1][j-1]);
 }
 }
 for (int j=0;j<N;j++){
-Form2->sg->Cells[0] [j+1]="X["+IntToStr(j+1)+"]="+FloatToStr(Mx[j]);
+Form2->sg->Cells[0] [j]="X["+IntToStr(j)+"]="+FloatToStr(Mx[j-1]);
 }
+*/
+
+		Form2->Chart1->SeriesList->Clear();
+		Form2->sg->ColCount = M+1;
+		Form2->sg->RowCount = N+1;
+		for(int i=1;i<=M;i++)
+		{
+				Form2->sg->Cells[i][0]=("A["+IntToStr(i)+"]="+FloatToStr(Ma[i-1]));
+				TLineSeries *Series = new TLineSeries(Form2->Chart1);
+				Form2->Chart1->AddSeries(Series);
+				for (int j=1;j<=N;j++)
+						if(ER[i-1][j-1])
+								Form2->sg->Cells[i][j]="Error";
+						else
+						{
+								Form2->sg->Cells[0][j]=("X["+IntToStr(j)+"]="+FloatToStr(Mx[j-1]));
+								Form2->Chart1->Series[i-1]->AddXY(Mx[j-1],My[i-1][j-1]);
+								Form2->sg->Cells[i][j]=FloatToStrF(My[i-1][j-1],ffGeneral,6,5);
+						}
+		}
 }
 
 //---------------------------------------------------------------------------
