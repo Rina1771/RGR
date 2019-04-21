@@ -1,0 +1,247 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 420
+  ClientWidth = 692
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 8
+    Top = 24
+    Width = 12
+    Height = 13
+    Caption = 'Xn'
+  end
+  object Label2: TLabel
+    Left = 8
+    Top = 56
+    Width = 13
+    Height = 13
+    Caption = 'Nx'
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 88
+    Width = 13
+    Height = 13
+    Caption = 'Dx'
+  end
+  object Label4: TLabel
+    Left = 219
+    Top = 32
+    Width = 13
+    Height = 13
+    Caption = 'An'
+  end
+  object Label5: TLabel
+    Left = 224
+    Top = 56
+    Width = 12
+    Height = 13
+    Caption = 'Ak'
+  end
+  object Label6: TLabel
+    Left = 224
+    Top = 81
+    Width = 13
+    Height = 13
+    Caption = 'Da'
+  end
+  object Label7: TLabel
+    Left = 528
+    Top = 24
+    Width = 17
+    Height = 13
+    Caption = 'Eps'
+  end
+  object Label8: TLabel
+    Left = 528
+    Top = 56
+    Width = 7
+    Height = 13
+    Caption = 'C'
+  end
+  object Label9: TLabel
+    Left = 528
+    Top = 88
+    Width = 7
+    Height = 13
+    Caption = 'D'
+  end
+  object Label10: TLabel
+    Left = 508
+    Top = 108
+    Width = 14
+    Height = 13
+    Caption = 'Km'
+  end
+  object Label11: TLabel
+    Left = 344
+    Top = 195
+    Width = 6
+    Height = 13
+    Caption = 'B'
+  end
+  object Label12: TLabel
+    Left = 545
+    Top = 195
+    Width = 9
+    Height = 13
+    Caption = 'Lt'
+  end
+  object Edit1: TEdit
+    Left = 32
+    Top = 24
+    Width = 121
+    Height = 21
+    TabOrder = 0
+  end
+  object Edit2: TEdit
+    Left = 32
+    Top = 51
+    Width = 121
+    Height = 21
+    TabOrder = 1
+  end
+  object Edit3: TEdit
+    Left = 32
+    Top = 78
+    Width = 121
+    Height = 21
+    TabOrder = 2
+  end
+  object Edit4: TEdit
+    Left = 256
+    Top = 24
+    Width = 121
+    Height = 21
+    TabOrder = 3
+  end
+  object Edit5: TEdit
+    Left = 256
+    Top = 51
+    Width = 121
+    Height = 21
+    TabOrder = 4
+  end
+  object Edit6: TEdit
+    Left = 256
+    Top = 78
+    Width = 121
+    Height = 21
+    TabOrder = 5
+  end
+  object Edit7: TEdit
+    Left = 568
+    Top = 24
+    Width = 121
+    Height = 21
+    TabOrder = 6
+  end
+  object Edit8: TEdit
+    Left = 563
+    Top = 51
+    Width = 121
+    Height = 21
+    TabOrder = 7
+  end
+  object Edit9: TEdit
+    Left = 563
+    Top = 78
+    Width = 121
+    Height = 21
+    TabOrder = 8
+  end
+  object Edit10: TEdit
+    Left = 568
+    Top = 105
+    Width = 121
+    Height = 21
+    TabOrder = 9
+  end
+  object Edit11: TEdit
+    Left = 370
+    Top = 192
+    Width = 121
+    Height = 21
+    TabOrder = 10
+  end
+  object Edit12: TEdit
+    Left = 568
+    Top = 192
+    Width = 121
+    Height = 21
+    TabOrder = 11
+  end
+  object Chart1: TChart
+    Left = 8
+    Top = 219
+    Width = 320
+    Height = 193
+    Title.Text.Strings = (
+      'TChart')
+    View3D = False
+    TabOrder = 12
+    DefaultCanvas = 'TGDIPlusCanvas'
+    PrintMargins = (
+      15
+      20
+      15
+      20)
+    ColorPaletteIndex = 13
+    object Series1: TFastLineSeries
+      LinePen.Color = 10708548
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+      object TeeFunction1: TCustomTeeFunction
+        CalcByValue = False
+        Period = 1.000000000000000000
+        NumPoints = 100
+      end
+    end
+  end
+  object sg: TStringGrid
+    Left = 364
+    Top = 280
+    Width = 320
+    Height = 120
+    TabOrder = 13
+  end
+  object Button1: TButton
+    Left = 416
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = #1042#1099#1095#1080#1089#1083#1080#1090#1100
+    TabOrder = 14
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 504
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = #1054#1095#1080#1089#1090#1080#1090#1100
+    TabOrder = 15
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 600
+    Top = 240
+    Width = 75
+    Height = 25
+    Caption = #1047#1072#1082#1088#1099#1090#1100
+    TabOrder = 16
+    OnClick = Button3Click
+  end
+end
