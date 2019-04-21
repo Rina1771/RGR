@@ -83,10 +83,10 @@ Out1(B,N,M,Lt,My,ER,Ma, Mx);
 
 delete [] Mx;
 delete [] Ma;
-for(int i=0;i<M;i++) delete[]My[i];
-delete [] My;
-for(int i=0;i<M;i++) delete[]ER[i];
-delete [] ER;
+//for(int i=0;i<M;i++) delete[]My[i];
+//delete [] My;
+//for(int i=0;i<M;i++) delete[]ER[i];
+//delete [] ER;
 }
 
 //-------------------------------------------------------------------------—
@@ -195,8 +195,6 @@ for (int j=0;j<N;j++){
 Form2->sg->Cells[0] [j]="X["+IntToStr(j)+"]="+FloatToStr(Mx[j-1]);
 }
 */
-Form2->Edit11->Text=FloatToStrF(B,ffGeneral,10,6);
-Form2->Edit12->Text=FloatToStrF(Lt,ffGeneral,10,6);
 
 		Form2->Chart1->SeriesList->Clear();
 		Form2->sg->ColCount = M+1;
